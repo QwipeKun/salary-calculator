@@ -1,43 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import './App.css'
-import store from './store'
-import result from './store'
-
-
-// class App extends React.Component{
-
-//   constructor(){
-//     super()
-//     this.state = {
-//       out: '170',
-//       val: ''
-//     }
-
-//   }
-//   getResult (){
-//     let result =  this.state.out * this.state.val
-//     return result
-//   }
-
-//   getInput(){ 
-    
-//   }
-
-//   render() {
-//     return(
-//       <div className = "container">
-//         <div className = "output">
-//           <input type = "text" placeholder = "Почасовая ставка" />
-//           <input type = "text" placeholder = "Количество рабочих часов в месяц" defaultValue = {this.state.out} />
-//         </div>
-//         <div className buttons>
-//           <button onClick = { () => {}}>Расчитать</button>
-//         </div>
-//         {<h3>Ваша зарпалата за {this.state.out} часов составляет: {this.getResult()}</h3>}
-//       </div>
-//     )
-//   }
-// }
+import './App.css' 
 
 function App() {
   let [salaryPerHour, setSalaryPerHour] = useState(0)
@@ -52,15 +14,17 @@ function App() {
       case 'salaryPerHour': 
       case 'totalHours':
         setMounthSalary(salaryPerHour * totalHours)
+        setYearPerSalary((salaryPerHour * totalHours) * 12)
         break
-        case 'mounth': 
+        case 'mounthSalary': 
         if (totalHours){
-          setSalaryPerHour(mounthSalary / totalHours)
+          setSalaryPerHour(Math.ceil(mounthSalary / totalHours))
+          setYearPerSalary(mounthSalary * 12)
         }
         break
-        case 'year':
-          setMounthSalary(yearPerSalary / 12)
-          setSalaryPerHour(yearPerSalary / 12 / totalHours)
+        case 'yearPerSalary':
+          setMounthSalary(Math.ceil(yearPerSalary / 12))
+          setSalaryPerHour(Math.ceil(yearPerSalary / 12 / totalHours))
           break
           default: 
           break
@@ -71,29 +35,39 @@ function App() {
   )
 
   return(
-  <div className = "container">
-  <div className = "output">
-    <input type = "text" placeholder = "Почасовая ставка" value = {salaryPerHour} onChange = {(event) => {
-        setActiveInput('salaryPerHour')
-        setSalaryPerHour(Number(event.target.value))
-      }
-    }/>
-    <input type = "text" placeholder = "Количество рабочих часов в месяц" value = {totalHours} onChange = {(event) => {
-      setActiveInput('totalHours')
-      setTotalHours(Number(event.target.value))
-      }
-    }/>
-    <input type = "text" placeholder = "Зарплата в месяц" value = {mounthSalary} onChange = {(event) => {
-        setActiveInput('mounth')
-        setMounthSalary(Number(event.target.value))
-      }
-    }/>
-    <input type = "text" placeholder = "Зарплата в год" value = {yearPerSalary} onChange = {(event) => {
-        setActiveInput('year')
-        setYearPerSalary(Number(event.target.value))
-      }
-    }/>
-  </div>
+  
+  <div className = "mainContainer">
+    <div className = "header">
+      Расчитай свою зарпалату
+    </div>
+      <div className = "container">
+        <div className = "items">
+        <div className = "textInput1">Почасовая ставка</div>
+        <input className = "fieldInput" type = "text" placeholder = "Почасовая ставка" value = {salaryPerHour} onChange = {(event) => {
+            setActiveInput('salaryPerHour')
+            setSalaryPerHour(Number(event.target.value))
+          }
+        }/>
+        <div className = "textInput">Количество рабочих часов в месяц</div>
+        <input className = "fieldInput" type = "text"  placeholder = "Количество рабочих часов в месяц" value = {totalHours} onChange = {(event) => {
+          setActiveInput('totalHours')
+          setTotalHours(Number(event.target.value))
+          }
+        }/>
+        <div className = "textInput">Зарплата в месяц</div>
+        <input className = "fieldInput" type = "text" placeholder = "Зарплата в месяц" value = {mounthSalary} onChange = {(event) => {
+            setActiveInput('mounthSalary')
+            setMounthSalary(Number(event.target.value))
+          }
+        }/>
+        <div className = "textInput">Зарплата за год</div>
+        <input className = "fieldInput" type = "text" placeholder = "Зарплата в год" value = {yearPerSalary} onChange = {(event) => {
+            setActiveInput('yearPerSalary')
+            setYearPerSalary(Number(event.target.value))
+          }
+        }/>
+      </div>
+    </div>
   </div>
 )
 }
