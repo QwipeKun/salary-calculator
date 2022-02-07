@@ -1,8 +1,7 @@
+
+# Demo: https://qwipekun.github.io/salary-calculator/
+
 # Getting Started with Create React App
-
-
-Demo: https://qwipekun.github.io/salary-calculator/
-
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
